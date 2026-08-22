@@ -56,5 +56,6 @@ git push
 2. Lưu file
 3. Kiểm tra lại 3 trang (`Robotverse-AI.html`, `pricing.html`, `contact.html`, `output.css`) xem đã chạy ổn chưa.
 
-
+## GitHub Pages
+https://bathanh-sys.github.io/Data-storage/
 
