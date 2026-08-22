@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,368 +8,292 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
+  <!-- Tailwind CSS -->
   <link rel="stylesheet" href="./dist/output.css">
 </head>
-<body>
+<body class="bg-surface-dark text-ink-dark font-body antialiased">
 
   <!-- ========== HEADER ========== -->
-  <header>
-    <div class="container nav">
-      <a href="#" class="logo">
-        <div class="logo-icon">🤖</div>
+  <header class="sticky top-0 z-50 bg-surface-dark/80 backdrop-blur-xl border-b border-line-dark">
+    <div class="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="Robotverse-AI.html" class="flex items-center gap-3 font-display font-bold text-xl text-ink-dark">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-lg">🤖</div>
         RobotVerse AI
       </a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#applications">Applications</a></li>
-        <li><a href="#featured">Featured</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <!-- Nav -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+        <li><a href="#gallery" class="hover:text-accent-400 transition">Gallery</a></li>
+        <li><a href="#applications" class="hover:text-accent-400 transition">Applications</a></li>
+        <li><a href="#featured" class="hover:text-accent-400 transition">Featured</a></li>
+        <li><a href="pricing.html" class="hover:text-accent-400 transition">Pricing</a></li>
+        <li><a href="contact.html" class="hover:text-accent-400 transition">Contact</a></li>
       </ul>
 
-      <div class="nav-actions">
-        <a href="#gallery" class="btn btn-primary btn-sm">Explore Models</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        <a href="#gallery" class="btn btn-primary btn-sm hidden sm:inline-flex">Explore Models</a>
+        <button id="menuToggle" class="md:hidden text-2xl text-ink-dark" aria-label="Menu">☰</button>
       </div>
     </div>
+
+    <!-- Mobile menu -->
+    <ul id="navLinks" class="hidden md:hidden flex-col gap-4 px-6 py-4 bg-surface-dark border-b border-line-dark text-muted">
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#applications">Applications</a></li>
+      <li><a href="#featured">Featured</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </header>
 
   <!-- ========== HERO ========== -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="dot"></span>
+  <section class="relative pt-24 pb-20 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute -top-1/2 -left-1/4 w-3/5 h-full bg-brand-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-1/3 -right-1/4 w-1/2 h-full bg-accent-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div>
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-400/10 border border-accent-400/30 text-accent-400 text-sm font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-accent-400"></span>
           Digital Showroom 2026
         </div>
-        <h1>Explore the Future<br>of <span>AI Robotics</span></h1>
-        <p>RobotVerse AI là showroom kỹ thuật số giúp bạn khám phá các mô hình Robot AI hiện đại – thông số, ứng dụng và xu hướng công nghệ mới nhất.</p>
-        <div class="hero-btns">
-          <a href="#gallery" class="btn btn-primary">Explore Models</a>
-          <a href="#applications" class="btn btn-outline">View Applications</a>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5">
+          Explore the Future<br>
+          of <span class="text-accent-400">AI Robotics</span>
+        </h1>
+        <p class="text-muted text-lg max-w-md mb-8">
+          RobotVerse AI là showroom kỹ thuật số giúp bạn khám phá các mô hình Robot AI hiện đại – thông số, ứng dụng và xu hướng công nghệ mới nhất.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#gallery" class="btn btn-primary px-7 py-3">Explore Models</a>
+          <a href="#applications" class="btn btn-outline px-7 py-3">View Applications</a>
         </div>
       </div>
 
-      <div class="robot-showcase">
-        <div class="glow-ring"></div>
-        <div class="robot-body">
-          <div class="robot-antenna"></div>
-          <div class="robot-head">
-            <div class="robot-eye left"></div>
-            <div class="robot-eye right"></div>
-          </div>
-          <div class="robot-torso">
-            <div class="robot-core"><span></span></div>
-          </div>
-          <div class="robot-arm left"></div>
-          <div class="robot-arm right"></div>
-          <div class="robot-leg left"></div>
-          <div class="robot-leg right"></div>
-        </div>
+      <!-- Robot visual -->
+      <div class="flex justify-center">
+        <div class="text-8xl md:text-9xl animate-bounce" style="animation-duration: 3s;">🤖</div>
       </div>
     </div>
   </section>
 
   <!-- ========== STATS ========== -->
-  <div class="container">
-    <div class="stats">
-      <div class="stat-card">
-        <div class="number">120+</div>
-        <div class="label">Robot Models</div>
+  <div class="max-w-6xl mx-auto px-6 -mt-8 relative z-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="card p-6 text-center"><div class="font-display text-3xl font-bold text-accent-400">120+</div>
+        
+        <div class="text-muted text-sm mt-1">Robot Models</div>
       </div>
-      <div class="stat-card">
-        <div class="number">30+</div>
-        <div class="label">Companies</div>
+      <div class="card p-6 text-center">
+        <div class="font-display text-3xl font-bold text-accent-400">30+</div>
+        <div class="text-muted text-sm mt-1">Companies</div>
       </div>
-      <div class="stat-card">
-        <div class="number">50K+</div>
-        <div class="label">Visitors</div>
+      <div class="card p-6 text-center">
+        <div class="font-display text-3xl font-bold text-accent-400">50K+</div>
+        <div class="text-muted text-sm mt-1">Visitors</div>
       </div>
-      <div class="stat-card">
-        <div class="number">95%</div>
-        <div class="label">Accuracy</div>
+      <div class="card p-6 text-center">
+        <div class="font-display text-3xl font-bold text-accent-400">95%</div>
+        <div class="text-muted text-sm mt-1">Accuracy</div>
       </div>
     </div>
   </div>
 
-  <!-- ========== ROBOT GALLERY ========== -->
-  <section id="gallery">
-    <div class="container">
+  <!-- ========== GALLERY ========== -->
+  <section id="gallery" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="section-title">
         <div class="section-label">Robot Gallery</div>
-        <h2>Khám phá các mẫu Robot AI</h2>
-        <p>Bộ sưu tập robot hiện đại từ các phòng lab và công ty hàng đầu thế giới</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-3">Khám phá các mẫu Robot AI</h2>
+        <p class="text-muted max-w-lg mx-auto">Bộ sưu tập robot hiện đại từ các phòng lab và công ty hàng đầu thế giới</p>
       </div>
 
-      <div class="gallery-grid" id="galleryGrid">
-        <!-- Cards will be rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== ROBOT DETAIL ========== -->
-  <section id="detail">
-    <div class="container">
-      <div class="section-title">
-        <div class="section-label">Robot Detail</div>
-        <h2>Atlas X – Humanoid Robot</h2>
-        <p>Thông số kỹ thuật và khả năng nổi bật</p>
-      </div>
-
-      <div class="detail-grid">
-        <div class="detail-image">🤖</div>
-        <div class="detail-specs">
-          <div class="specs-grid">
-            <div class="spec-item">
-              <div class="spec-label">Chiều cao</div>
-              <div class="spec-value">1.5 m</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">Trọng lượng</div>
-              <div class="spec-value">89 kg</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">Pin</div>
-              <div class="spec-value">1 giờ</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">AI Engine</div>
-              <div class="spec-value">Custom DNN</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">Camera</div>
-              <div class="spec-value">Stereo + Depth</div>
-            </div>
-            <div class="spec-item">
-              <div class="spec-label">CPU</div>
-              <div class="spec-value">Intel i7 + GPU</div>
-            </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+        <!-- Card mẫu -->
+        <div class="card overflow-hidden">
+          <div class="h-44 bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center text-6xl relative">
+            🤖
+            <span class="badge absolute top-3 right-3">AI 98%</span>
           </div>
-          <p class="detail-desc">
-            Ứng dụng: Nghiên cứu AI, cứu hộ, công nghiệp, biểu diễn công nghệ. Atlas X được phát triển bởi Boston Dynamics với khả năng cân bằng và di chuyển vượt trội.
-          </p>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg">Atlas X</h3>
+            <p class="text-brand-500 text-sm mb-2">Humanoid</p>
+            <p class="text-muted text-sm line-clamp-2">Robot hình người linh hoạt nhất với khả năng cân bằng vượt trội.</p>
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="h-44 bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center text-6xl relative">
+            🦾
+            <span class="badge absolute top-3 right-3">AI 95%</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg">Forge Arm 7</h3>
+            <p class="text-brand-500 text-sm mb-2">Industrial</p>
+            <p class="text-muted text-sm line-clamp-2">Cánh tay công nghiệp tốc độ cao, độ chính xác tuyệt đối.</p>
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="h-44 bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center text-6xl relative">
+            🏥
+            <span class="badge absolute top-3 right-3">AI 97%</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-bold text-lg">MediBot S1</h3>
+            <p class="text-brand-500 text-sm mb-2">Medical</p>
+            <p class="text-muted text-sm line-clamp-2">Hỗ trợ phẫu thuật với độ chính xác siêu vi.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ========== APPLICATIONS ========== -->
-  <section id="applications">
-    <div class="container">
+  <section id="applications" class="py-20 bg-white/2">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="section-title">
         <div class="section-label">Applications</div>
-        <h2>Robot theo lĩnh vực</h2>
-        <p>Khám phá cách Robot AI đang thay đổi từng ngành nghề</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-3">Robot theo lĩnh vực</h2>
+        <p class="text-muted max-w-lg mx-auto">Khám phá cách Robot AI đang thay đổi từng ngành nghề</p>
       </div>
-      <div class="apps-grid">
-        <div class="app-card"><div class="app-icon">🏥</div><h4>Healthcare</h4><p>Phẫu thuật, chăm sóc bệnh nhân</p></div>
-        <div class="app-card"><div class="app-icon">🎓</div><h4>Education</h4><p>Giảng dạy STEM & lập trình</p></div>
-        <div class="app-card"><div class="app-icon">🛡️</div><h4>Security</h4><p>Tuần tra & giám sát thông minh</p></div>
-        <div class="app-card"><div class="app-icon">🏭</div><h4>Factory</h4><p>Sản xuất & lắp ráp tự động</p></div>
-        <div class="app-card"><div class="app-icon">🏠</div><h4>Home</h4><p>Trợ lý gia đình thông minh</p></div>
-        <div class="app-card"><div class="app-icon">🌾</div><h4>Agriculture</h4><p>Nông nghiệp chính xác</p></div>
-        <div class="app-card"><div class="app-icon">📦</div><h4>Logistics</h4><p>Kho bãi & vận chuyển</p></div>
-        <div class="app-card"><div class="app-icon">🪖</div><h4>Military</h4><p>Trinh sát & hỗ trợ chiến thuật</p></div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🏥</div>
+          <h4 class="font-semibold mb-1">Healthcare</h4>
+          <p class="text-muted text-sm">Phẫu thuật, chăm sóc bệnh nhân</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🎓</div>
+          <h4 class="font-semibold mb-1">Education</h4>
+          <p class="text-muted text-sm">Giảng dạy STEM & lập trình</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🛡️</div>
+          <h4 class="font-semibold mb-1">Security</h4>
+          <p class="text-muted text-sm">Tuần tra & giám sát thông minh</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🏭</div>
+          <h4 class="font-semibold mb-1">Factory</h4>
+          <p class="text-muted text-sm">Sản xuất & lắp ráp tự động</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🏠</div>
+          <h4 class="font-semibold mb-1">Home</h4>
+          <p class="text-muted text-sm">Trợ lý gia đình thông minh</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🌾</div>
+          <h4 class="font-semibold mb-1">Agriculture</h4>
+          <p class="text-muted text-sm">Nông nghiệp chính xác</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">📦</div>
+          <h4 class="font-semibold mb-1">Logistics</h4>
+          <p class="text-muted text-sm">Kho bãi & vận chuyển</p>
+        </div>
+        <div class="card p-6 text-center hover:border-brand-500/40">
+          <div class="text-4xl mb-3">🪖</div>
+          <h4 class="font-semibold mb-1">Military</h4>
+          <p class="text-muted text-sm">Trinh sát & hỗ trợ chiến thuật</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ========== FEATURED ========== -->
-  <section id="featured">
-    <div class="container">
+  <section id="featured" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="section-title">
         <div class="section-label">Featured</div>
-        <h2>Top Robots 2026</h2>
-        <p>Những mẫu robot nổi bật được cộng đồng quan tâm nhất</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-3">Top Robots 2026</h2>
+        <p class="text-muted max-w-lg mx-auto">Những mẫu robot nổi bật được cộng đồng quan tâm nhất</p>
       </div>
-      <div class="featured-grid">
-        <div class="featured-card">
-          <div class="rank">Top AI Robot 2026</div>
-          <div class="emoji">🤖</div>
-          <h3>Atlas X</h3>
-          <p>Humanoid linh hoạt nhất với AI Level 98%</p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card p-8 text-center border-brand-500/30">
+          <div class="text-accent-400 text-xs font-semibold tracking-widest uppercase mb-3">Top AI Robot 2026</div>
+          <div class="text-5xl mb-4">🤖</div>
+          <h3 class="font-display font-bold text-xl mb-2">Atlas X</h3>
+          <p class="text-muted text-sm">Humanoid linh hoạt nhất với AI Level 98%</p>
         </div>
-        <div class="featured-card">
-          <div class="rank">Top Industrial Robot</div>
-          <div class="emoji">🦾</div>
-          <h3>Forge Arm 7</h3>
-          <p>Cánh tay công nghiệp tốc độ cao, an toàn</p>
+        <div class="card p-8 text-center border-brand-500/30">
+          <div class="text-accent-400 text-xs font-semibold tracking-widest uppercase mb-3">Top Industrial Robot</div>
+          <div class="text-5xl mb-4">🦾</div>
+          <h3 class="font-display font-bold text-xl mb-2">Forge Arm 7</h3>
+          <p class="text-muted text-sm">Cánh tay công nghiệp tốc độ cao, an toàn</p>
         </div>
-        <div class="featured-card">
-          <div class="rank">Top Medical Robot</div>
-          <div class="emoji">🏥</div>
-          <h3>MediBot S1</h3>
-          <p>Hỗ trợ phẫu thuật chính xác cao</p>
+        <div class="card p-8 text-center border-brand-500/30">
+          <div class="text-accent-400 text-xs font-semibold tracking-widest uppercase mb-3">Top Medical Robot</div>
+          <div class="text-5xl mb-4">🏥</div>
+          <h3 class="font-display font-bold text-xl mb-2">MediBot S1</h3>
+          <p class="text-muted text-sm">Hỗ trợ phẫu thuật chính xác cao</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== PRICING ========== -->
-  <section id="pricing">
-    <div class="container">
-      <div class="section-title">
-        <div class="section-label">Pricing</div>
-        <h2>Chọn gói phù hợp</h2>
-        <p>Trải nghiệm showroom miễn phí hoặc nâng cấp để có thêm quyền lợi</p>
-      </div>
-      <div class="pricing-grid">
-        <div class="price-card">
-          <h3>Free</h3>
-          <div class="price">$0 <span>/tháng</span></div>
-          <ul>
-            <li>Browse tất cả robot</li>
-            <li>Xem thông số cơ bản</li>
-            <li>Truy cập blog</li>
-            <li>Không giới hạn thiết bị</li>
-            <li>Giới hạn số lượng token</li>
-          </ul>
-          <a href="#" class="btn btn-outline full">Get Started</a>
-        </div>
-        <div class="price-card popular">
-          <h3>Pro</h3>
-          <div class="price">$12 <span>/tháng</span></div>
-          <ul>
-            <li>Unlimited Access</li>
-            <li>Download Brochure PDF</li>
-            <li>So sánh robot chi tiết</li>
-            <li>Priority Support</li>
-            <li>Early access tính năng mới</li>
-          </ul>
-          <a href="#" class="btn btn-primary full">Get Pro</a>
-        </div>
-        <div class="price-card">
-          <h3>Enterprise</h3>
-          <div class="price">Custom</div>
-          <ul>
-            <li>Custom API Access</li>
-            <li>Private Collection</li>
-            <li>Analytics Dashboard</li>
-            <li>Dedicated Support</li>
-            <li>White-label option</li>
-          </ul>
-          <a href="#contact" class="btn btn-outline full">Contact Sales</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== BLOG ========== -->
-  <section id="blog">
-    <div class="container">
-      <div class="section-title">
-        <div class="section-label">Blog</div>
-        <h2>Tin tức & Xu hướng</h2>
-        <p>Cập nhật kiến thức mới nhất về Robotics và AI</p>
-      </div>
-      <div class="blog-grid">
-        <div class="blog-card">
-          <div class="blog-img">📰</div>
-          <div class="blog-body">
-            <div class="date">12 Mar 2026</div>
-            <h3>Top AI Robots in 2026</h3>
-            <p>Tổng hợp những mẫu robot AI ấn tượng nhất năm nay.</p>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img">🧠</div>
-          <div class="blog-body">
-            <div class="date">28 Feb 2026</div>
-            <h3>How Humanoid Robots Work</h3>
-            <p>Giải thích nguyên lý hoạt động của robot hình người.</p>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-img">🚀</div>
-          <div class="blog-body">
-            <div class="date">15 Feb 2026</div>
-            <h3>Future of Robotics</h3>
-            <p>Xu hướng robot AI trong 5–10 năm tới sẽ ra sao?</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CONTACT ========== -->
-  <section id="contact">
-    <div class="container">
-      <div class="contact-wrapper">
-        <div class="contact-info">
-          <div class="section-label">Contact</div>
-          <h2>Liên hệ với chúng tôi</h2>
-          <p>Bạn là sinh viên, lập trình viên hay doanh nghiệp? Hãy gửi tin nhắn để được hỗ trợ hoặc hợp tác.</p>
-          <div class="contact-item"><span>📧</span> hello@robotverse.ai</div>
-          <div class="contact-item"><span>📍</span> Hà Nội, Việt Nam</div>
-          <div class="contact-item"><span>💬</span> Phản hồi trong 24h</div>
-        </div>
-
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label>Họ và tên</label>
-            <input type="text" name="name" placeholder="Nguyễn Văn A" required>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="email@example.com" required>
-          </div>
-          <div class="form-group">
-            <label>Tin nhắn</label>
-            <textarea name="message" placeholder="Nội dung bạn muốn gửi..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary full">Gửi tin nhắn</button>
-        </form>
+  <!-- ========== CTA PRICING ========== -->
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="card p-10 md:p-14 text-center border-brand-500/40 bg-gradient-to-br from-brand-500/10 to-accent-500/5">
+        <h2 class="font-display text-3xl font-bold mb-4">Sẵn sàng khám phá sâu hơn?</h2>
+        <p class="text-muted mb-8 max-w-lg mx-auto">Nâng cấp lên gói Pro để mở khóa so sánh chi tiết, tải brochure và ưu tiên hỗ trợ.</p>
+        <a href="pricing.html" class="btn btn-primary px-8 py-3">Xem bảng giá</a>
       </div>
     </div>
   </section>
 
   <!-- ========== FOOTER ========== -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#" class="logo">
-            <div class="logo-icon">🤖</div>
+  <footer class="border-t border-line-dark pt-12 pb-8 mt-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10 mb-10">
+        <div class="md:col-span-1">
+          <a href="Robotverse-AI.html" class="flex items-center gap-3 font-display font-bold text-lg mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">🤖</div>
             RobotVerse AI
           </a>
-          <p>Showroom kỹ thuật số dành cho các mô hình Robot AI hiện đại. Khám phá – Học hỏi – Cập nhật xu hướng.</p>
+          <p class="text-muted text-sm leading-relaxed">Showroom kỹ thuật số dành cho các mô hình Robot AI hiện đại.</p>
         </div>
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <a href="#gallery">Robot Gallery</a>
-          <a href="#applications">Applications</a>
-          <a href="#featured">Featured</a>
-          <a href="#pricing">Pricing</a>
+        <div>
+          <h4 class="font-semibold mb-4">Explore</h4>
+          <div class="flex flex-col gap-2 text-sm text-muted">
+            <a href="#gallery" class="hover:text-accent-400">Robot Gallery</a>
+            <a href="#applications" class="hover:text-accent-400">Applications</a>
+            <a href="#featured" class="hover:text-accent-400">Featured</a>
+            <a href="pricing.html" class="hover:text-accent-400">Pricing</a>
+          </div>
         </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="#blog">Blog</a>
-          <a href="#">Documentation</a>
-          <a href="#">API (Pro)</a>
-          <a href="#">Community</a>
+        <div>
+          <h4 class="font-semibold mb-4">Resources</h4>
+          <div class="flex flex-col gap-2 text-sm text-muted">
+            <a href="#" class="hover:text-accent-400">Blog</a>
+            <a href="#" class="hover:text-accent-400">Documentation</a>
+            <a href="#" class="hover:text-accent-400">API (Pro)</a>
+          </div>
         </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="#contact">Contact</a>
-          <a href="#">About</a>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+        <div>
+          <h4 class="font-semibold mb-4">Company</h4>
+          <div class="flex flex-col gap-2 text-sm text-muted">
+            <a href="contact.html" class="hover:text-accent-400">Contact</a>
+            <a href="#" class="hover:text-accent-400">About</a>
+            <a href="#" class="hover:text-accent-400">Privacy</a>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div class="border-t border-line-dark pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-muted">
         <span>© 2026 RobotVerse AI. Made for students & tech lovers.</span>
         <span>Dark • Glass • Neon</span>
       </div>
     </div>
   </footer>
-
-  <!-- JS -->
-  <script src="js/Script.js"></script>
 </body>
 </html>
-
