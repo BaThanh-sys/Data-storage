@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Vựa — Phần mềm quản lý vựa nông sản</title>
+  <meta name="description" content="Vựa giúp chủ vựa nông sản ghi phiếu cân, theo dõi lô hàng và đối chiếu công nợ thương lái ngay trên điện thoại." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./dist/output.css" />
+</head>
+
+<body>
+
+  <!-- ############################################################
+       STARTER BUỔI 3  —  KẾT QUẢ CUỐI BUỔI 2
+
+       Trang này CHỈ ĐÚNG Ở MÀN HÌNH RỘNG. Bố cục dựng cho 1440px:
+       lưới ba cột cứng, hero hai cột cứng, menu ngang, cỡ chữ to.
+       Thu khung trình duyệt xuống 360px là vỡ toàn bộ.
+
+       Đó là đúng điểm xuất phát. Cả buổi 3 xoay quanh một câu:
+       trong Tailwind, "lg:" nghĩa là TỪ lg TRỞ LÊN, không phải "ở lg".
+       Việc của bạn là hạ mọi thứ về cỡ điện thoại làm mặc định, rồi
+       nâng dần lên bằng sm: và lg:.
+
+       Tìm việc nhanh: gõ "TODO buổi 3" trong VS Code.
+
+         Tiết 1  Chạy ở 360px, liệt kê chỗ vỡ (viết ra giấy TRƯỚC)
+         Tiết 2  Thêm responsive cho từng section, kiểm đủ 4 mốc
+                 360 / 768 / 1024 / 1440
+         Tiết 3  Dark mode — sửa src/input.css TRƯỚC, HTML sau
+         Tiết 4  Trích component, dựng pricing.html và contact.html
+         Tiết 5  Form tiếp cận trong contact.html, rồi deploy
+
+       Có hướng dẫn từng bước cho tiết 1–2: HUONG-DAN-RESPONSIVE.md
+
+       Quy tắc: chỉ SỬA CLASS, không xóa thẻ, không đổi thứ bậc
+       heading. Buổi 2 đã đạt lab2.mjs — làm hỏng là mất điểm hồi quy.
+       ############################################################ -->
+
+  <!-- Link bỏ qua điều hướng: chỉ hiện khi người dùng nhấn Tab.
+       Thử ngay: tải trang rồi nhấn Tab một lần. -->
+  <a href="#main"
+     class="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50">
+    Bỏ qua đến nội dung chính
+  </a>
+
+
+  <!-- ============================================================
+       NAVBAR  —  dựng ở BUỔI 1, chưa có responsive
+       ============================================================ -->
+  <header class="sticky top-0 z-40 border-b border-line bg-surface/85 backdrop-blur">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4"
+         aria-label="Điều hướng chính">
+
+      <!-- Logo dùng <a> vì nó ĐƯA NGƯỜI DÙNG ĐI ĐÂU ĐÓ -->
+      <a href="./index.html" class="flex items-center gap-2.5">
+        <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-600
+                     font-display text-lg font-extrabold text-white">V</span>
+        <span class="font-display text-xl font-extrabold">Vựa</span>
+      </a>
+
+      <!-- Menu ngang. TODO buổi 3 · tiết 2: menu này phải BIẾN MẤT
+           dưới lg và nhường chỗ cho nút hamburger bên phải, nếu không
+           ở 360px bốn mục menu sẽ đè lên logo.
+           Cặp đi với nhau: menu "hidden lg:flex", hamburger "lg:hidden".
+
+           TODO buổi 3 · tiết 4: sau khi dựng xong hai trang mới, trỏ
+           "Bảng giá" sang ./pricing.html và thêm mục "Liên hệ" trỏ
+           ./contact.html. Liên kết trong trang đổi thành
+           ./index.html#tinh-nang để còn bấm được từ hai trang kia. -->
+      <ul class="flex items-center gap-8 text-sm font-medium">
+        <li><a href="#tinh-nang" class="hover:text-brand-600">Tính năng</a></li>
+        <li><a href="#cach-hoat-dong" class="hover:text-brand-600">Cách hoạt động</a></li>
+        <li><a href="#bang-gia" class="hover:text-brand-600">Bảng giá</a></li>
+        <li><a href="#cau-hoi" class="hover:text-brand-600">Câu hỏi</a></li>
+      </ul>
+
+      <div class="flex items-center gap-2">
+
+        <!-- TODO buổi 3 · tiết 3: thêm nút bật/tắt nền tối vào đây.
+             Yêu cầu: <button type="button"> có aria-pressed="false" và
+             aria-label mô tả việc nó làm; bên trong hai icon, một icon
+             ẩn ở chế độ sáng, một ẩn ở chế độ tối (dark:hidden /
+             hidden dark:block). Chỉ dựng markup — buổi 4 mới gắn JS.
+             Trong lúc chờ, thử dark mode bằng cách thêm tay
+             class="dark" vào thẻ <html> trong DevTools. -->
+
+        <a href="#cta" class="btn btn-primary">Dùng thử 30 ngày</a>
+
+        <!-- Nút hamburger dùng <button> vì nó THỰC HIỆN MỘT HÀNH ĐỘNG.
+             Markup có sẵn từ buổi 1; buổi 4 mới gắn JavaScript cho chạy.
+
+             TODO buổi 3 · tiết 2: đang bị "hidden" cứng nên không bao
+             giờ hiện. Đổi thành hiện ở màn hình hẹp, ẩn từ lg trở lên.
+             Nút cần "grid" để icon nằm giữa khi nó hiện ra. -->
+        <button type="button"
+                class="hidden h-10 w-10 place-items-center rounded-pill border border-line"
+                aria-expanded="false" aria-controls="nav-mobile" aria-label="Mở menu">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menu mobile: khung có sẵn, chưa mở được. Buổi 4 xử lý.
+
+         TODO buổi 3 · tiết 2: giữ "hidden" (buổi 4 gỡ bằng JS), nhưng
+         thêm "lg:hidden" làm chốt an toàn. Không có nó, người dùng mở
+         menu ở điện thoại rồi xoay ngang hoặc kéo rộng cửa sổ sẽ thấy
+         panel mobile dính lại giữa màn hình desktop. -->
+    <div id="nav-mobile" class="hidden border-t border-line px-5 pb-6 pt-4">
+      <ul class="flex flex-col gap-1 text-base font-medium">
+        <li><a href="#tinh-nang" class="block rounded-lg px-3 py-2.5 hover:bg-surface-alt">Tính năng</a></li>
+        <li><a href="#cach-hoat-dong" class="block rounded-lg px-3 py-2.5 hover:bg-surface-alt">Cách hoạt động</a></li>
+        <li><a href="#bang-gia" class="block rounded-lg px-3 py-2.5 hover:bg-surface-alt">Bảng giá</a></li>
+        <li><a href="#cau-hoi" class="block rounded-lg px-3 py-2.5 hover:bg-surface-alt">Câu hỏi</a></li>
+      </ul>
+      <a href="#cta" class="btn btn-primary btn-lg mt-4 w-full">Dùng thử 30 ngày</a>
+    </div>
+  </header>
+
+
+  <main id="main">
+
+    <!-- ============================================================
+         HERO  —  dựng ở BUỔI 1, chưa có responsive
+
+         TODO buổi 3 · tiết 2: hero đang là grid-cols-2 CỨNG. Ở 360px
+         hai cột chia đôi màn hình còn 180px mỗi bên, chữ vỡ vụn.
+         Bỏ số cột ở mặc định (một cột), chỉ bật hai cột từ lg.
+
+         Đây là chỗ để hiểu vì sao viết mobile-first ít chữ hơn: một
+         cột là hành vi MẶC ĐỊNH của grid, không cần viết gì cả.
+         Cách ngược lại — grid-cols-2 rồi đè max-lg:grid-cols-1 — dài
+         hơn, và mỗi lần thêm một mốc màn hình lại phải đè tiếp.
+
+         Cỡ chữ h1 cũng vậy: text-6xl trên điện thoại là mỗi dòng
+         lọt hai chữ. Hạ mặc định xuống rồi nâng dần.
+         ============================================================ -->
+    <section class="section grid grid-cols-2 items-center gap-16"
+             aria-labelledby="hero-title">
+
+      <div>
+        <p class="eyebrow">Dành cho vựa nông sản</p>
+
+        <h1 id="hero-title" class="mt-4 text-6xl font-extrabold leading-[1.1]">
+          Cân xong là có phiếu.<br />
+          Cuối ngày là có sổ.
+        </h1>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl">ABC</h1>
+        <!-- Ý nghĩa text-4xl sm:text-5xl lg:text-6xl? -->
+        <!-- Trong TW, lg: có nghĩa là "từ lg trở lên", không phải "ở lg" -->
+        <!-- mặc định text-4xl, từ sm trở lên, từ lg trở lên -->
+        <!-- trong tailwind từ lg trở lên không phải ở lg -->
+
+        <!-- Hệ quả: class không có tiền tố chính là class dành cho điện thoại. Vì vậy, quy trình luôn là 2 động tác
+            1. Hạ giá trị mặc định xuống kích cỡ điện thoại
+            2. Nâng dần lên bằng sm: ->lg:......
+        -->
+        <!-- section nào vỡ? vỡ như thế nào? dự kiến sửa bằng class gì? -->
+        <p class="mt-6 max-w-lg text-lg text-muted">
+          Vựa thay cuốn sổ tay bằng phiếu cân trên điện thoại. Ghi lô hàng lúc xe vào,
+          đối chiếu công nợ thương lái lúc xe ra, không cần nhập lại vào máy tính.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#cta" class="btn btn-primary btn-lg">Dùng thử 30 ngày</a>
+          <a href="#cach-hoat-dong" class="btn btn-ghost btn-lg">Xem cách hoạt động</a>
+        </div>
+
+        <p class="mt-5 text-sm text-muted">
+          Không cần thẻ ngân hàng · Cài trong 10 phút · Hỗ trợ qua Zalo
+        </p>
+      </div>
+
+      <!-- Khối đặc trưng: tờ phiếu cân, mép dưới có răng cưa -->
+      <div class="ticket mx-auto max-w-sm">
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted">Phiếu cân</p>
+            <p class="font-display text-lg font-bold">PC-2607-118</p>
+          </div>
+          <!-- TODO buổi 3 · tiết 3: nền brand-50 rất sáng, để nguyên ở
+               chế độ tối sẽ thành một mảng trắng lòi ra. Thêm cặp
+               dark: dùng TOKEN CỦA DỰ ÁN (dark:bg-brand-900 …),
+               tuyệt đối không dùng dark:bg-gray-800. -->
+          <span class="badge bg-brand-50 text-brand-700">Đã chốt</span>
+        </div>
+
+        <dl class="mt-6 space-y-3 border-t border-dashed border-line pt-5 text-sm">
+          <div class="flex justify-between">
+            <dt class="text-muted">Thương lái</dt>
+            <dd class="font-medium">Chú Bảy Rạch Giá</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-muted">Mặt hàng</dt>
+            <dd class="font-medium">Xoài cát Hòa Lộc</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-muted">Cân tổng / bì</dt>
+            <dd class="font-medium">1.240 kg / 62 kg</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-muted">Đơn giá</dt>
+            <dd class="font-medium">32.000 ₫/kg</dd>
+          </div>
+        </dl>
+
+        <div class="mt-5 flex items-end justify-between border-t border-dashed border-line pt-5">
+          <span class="text-sm text-muted">Thành tiền</span>
+          <span class="font-display text-2xl font-extrabold text-brand-600">37.696.000 ₫</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ############################################################
+         TỪ ĐÂY TRỞ XUỐNG: BỐ CỤC DESKTOP ĐÃ XONG Ở BUỔI 2.
+
+         Buổi 3 KHÔNG dựng lại bố cục, không xóa thẻ. Mỗi section chỉ
+         làm hai việc:
+           1. Hạ bố cục về cỡ điện thoại rồi nâng dần bằng sm:/lg:
+              (tiết 1 → 2)
+           2. Thêm cặp dark: cho những chỗ có MÀU RIÊNG (tiết 3)
+
+         Riêng việc 2: chỗ nào dùng bg-surface / text-ink / text-muted
+         / border-line thì KHÔNG phải làm gì — khối .dark trong
+         input.css đảo giá trị của chính mấy token đó.
+         ############################################################ -->
+
+
+    <!-- === DẢI KHÁCH HÀNG  ·  xong ở buổi 2 =====================
+         Nền và viền ở <section> để chạy hết chiều ngang; container
+         .section ở <div> bên trong để chữ vẫn thẳng cột.
+         <ul> flex flex-wrap, gap-x lớn hơn gap-y.
+         Dùng bg-surface-alt → tự có chế độ tối, không phải sửa.
+         ========================================================= -->
+    <section class="border-y border-line bg-surface-alt" aria-labelledby="doitac-title">
+      <div class="section">
+        <h2 id="doitac-title" class="text-center text-sm font-medium text-muted">
+          Đang được dùng tại 340 vựa ở Đồng bằng sông Cửu Long
+        </h2>
+
+        <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-6
+                   font-display text-lg font-bold text-muted">
+          <li>Vựa Ba Càng</li>
+          <li>HTX Tân Phú</li>
+          <li>Kho lạnh Sáu Nghĩa</li>
+          <li>Vựa Chín Đợi</li>
+          <li>Nông sản Mười Trí</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- === TÍNH NĂNG  ·  bố cục desktop xong ở buổi 2 ===========
+         TODO buổi 3 · tiết 2: lưới đang grid-cols-3 cứng. Ba thẻ ép
+         vào 360px thì mỗi thẻ rộng hơn 100px một chút. Đi ba mốc:
+         mặc định 1 cột → sm 2 cột → lg 3 cột.
+
+         TODO buổi 3 · tiết 3: ô icon dưới đây dùng bg-brand-50 và
+         text-brand-600 — cả hai đều là màu dành cho nền sáng. Thêm
+         cặp dark: cho ba ô icon. Làm một ô rồi chép sang hai ô kia.
+         ========================================================= -->
+    <section id="tinh-nang" class="section" aria-labelledby="tinh-nang-title">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Tính năng</p>
+        <h2 id="tinh-nang-title" class="mt-4 text-4xl font-extrabold">
+          Đúng ba việc mà vựa nào cũng phải làm mỗi ngày
+        </h2>
+        <p class="mt-4 text-lg text-muted">
+          Không có tính năng thừa. Mỗi màn hình giải quyết một việc đang được làm bằng giấy.
+        </p>
+      </div>
+
+      <ul class="mt-14 grid grid-cols-3 gap-6">
+        <li class="card">
+          <!-- aria-hidden="true" là BẮT BUỘC: icon không mang thông tin,
+               để trình đọc màn hình đọc nó chỉ gây nhiễu. -->
+          <span class="grid h-11 w-11 place-items-center rounded-lg bg-brand-50 text-brand-600">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 3h7l4 4v14H7z" />
+              <path d="M14 3v4h4" />
+              <path d="M10 12h5M10 16h5" />
+            </svg>
+          </span>
+          <h3 class="mt-5 font-display text-lg font-bold">Ghi phiếu cân tại bàn cân</h3>
+          <p class="mt-2 text-muted">Nhập cân tổng, trừ bì, chọn đơn giá. Phiếu in ra hoặc gửi Zalo cho thương lái ngay tại chỗ.</p>
+        </li>
+        <li class="card">
+          <span class="grid h-11 w-11 place-items-center rounded-lg bg-brand-50 text-brand-600">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3.5" y="5" width="17" height="15" rx="2" />
+              <path d="M8 3v4M16 3v4M3.5 10h17" />
+              <path d="M8 14h3M8 17h8" />
+            </svg>
+          </span>
+          <h3 class="mt-5 font-display text-lg font-bold">Sổ lô hàng theo ngày</h3>
+          <p class="mt-2 text-muted">Toàn bộ lô vào — ra của một ngày nằm trên một màn hình. Lọc theo mặt hàng, thương lái, trạng thái.</p>
+        </li>
+        <li class="card">
+          <span class="grid h-11 w-11 place-items-center rounded-lg bg-brand-50 text-brand-600">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="6" width="18" height="13" rx="2" />
+              <path d="M3 10.5h18" />
+              <circle cx="16.5" cy="14.5" r="1.4" />
+            </svg>
+          </span>
+          <h3 class="mt-5 font-display text-lg font-bold">Công nợ không cần nhớ</h3>
+          <p class="mt-2 text-muted">Mỗi thương lái có một dòng số dư. Trả tiền đợt nào ghi đợt đó, cuối tháng đối chiếu bằng một màn hình.</p>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- === CÁCH HOẠT ĐỘNG  ·  bố cục desktop xong ở buổi 2 ======
+         Section tự thêm (không có trong Figma) của bài tập buổi 2.
+         Dùng <ol> vì ba bước thật sự có thứ tự.
+
+         TODO buổi 3 · tiết 2: ba bước xếp ngang cứng. Ở điện thoại,
+         quy trình ba bước xếp DỌC đọc còn tự nhiên hơn xếp ngang —
+         một cột mặc định, ba cột từ sm.
+
+         TODO buổi 3 · tiết 3: ba .badge "Bước 01/02/03" đang mang
+         màu nền sáng — xử lý y như badge ở hero.
+         ========================================================= -->
+    <section id="cach-hoat-dong" class="section" aria-labelledby="cach-title">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Cách hoạt động</p>
+        <h2 id="cach-title" class="mt-4 text-4xl font-extrabold">Một xe vào vựa, ba thao tác</h2>
+      </div>
+
+      <ol class="mt-14 grid grid-cols-3 gap-6">
+        <li class="card">
+          <span class="badge bg-brand-50 text-brand-700">Bước 01</span>
+          <h3 class="mt-4 font-display text-lg font-bold">Xe lên bàn cân</h3>
+          <p class="mt-2 text-muted">Chọn thương lái có sẵn trong danh bạ, nhập cân tổng. Khách mới thì thêm ngay trên màn hình đó.</p>
+        </li>
+        <li class="card">
+          <span class="badge bg-brand-50 text-brand-700">Bước 02</span>
+          <h3 class="mt-4 font-display text-lg font-bold">Trừ bì, chốt giá</h3>
+          <p class="mt-2 text-muted">Nhập số bì và đơn giá hôm đó. Thành tiền tính tự động, không bấm máy tính tay.</p>
+        </li>
+        <li class="card">
+          <span class="badge bg-brand-50 text-brand-700">Bước 03</span>
+          <h3 class="mt-4 font-display text-lg font-bold">Chốt phiếu</h3>
+          <p class="mt-2 text-muted">Phiếu vào sổ ngày và vào công nợ của thương lái cùng lúc. Không phải ghi hai lần.</p>
+        </li>
+      </ol>
+    </section>
+
+
+    <!-- === SỐ LIỆU  ·  bố cục desktop xong ở buổi 2 =============
+         grid + divide-x kẻ vạch GIỮA các cột. <dt> đứng trước <dd>
+         cho đúng ngữ nghĩa, đảo hiển thị bằng order-2 (chỉ ăn khi ô
+         bọc là flex flex-col).
+
+         TODO buổi 3 · tiết 2: chỗ này khó hơn ba section trên, vì
+         phải đảo cả cách NGĂN CÁCH. Ở điện thoại: một cột, ngăn nhau
+         bằng khoảng trắng (gap). Từ sm: ba cột, bỏ gap, ngăn bằng
+         vạch dọc divide-x. Nghĩa là gap và divide-x phải đổi vai cho
+         nhau theo breakpoint, không cùng bật một lúc.
+
+         TODO buổi 3 · tiết 3: ba con số dùng text-brand-600. Trên
+         nền tối, sắc này chìm — cần một sắc thương hiệu SÁNG hơn.
+         Bạn sẽ phải khai báo thêm một token cho việc đó.
+         ========================================================= -->
+    <section class="section" aria-labelledby="solieu-title">
+      <h2 id="solieu-title" class="sr-only">Số liệu sử dụng</h2>
+
+      <dl class="grid grid-cols-3 gap-0 divide-x divide-line rounded-card border border-line
+                 bg-surface-alt px-6 py-12">
+        <div class="flex flex-col px-6 text-center">
+          <dt class="order-2 mt-2 text-sm text-muted">Vựa đang dùng hằng ngày</dt>
+          <dd class="font-display text-4xl font-extrabold text-brand-600">340</dd>
+        </div>
+        <div class="flex flex-col px-6 text-center">
+          <dt class="order-2 mt-2 text-sm text-muted">Phiếu cân ghi trong năm 2025</dt>
+          <dd class="font-display text-4xl font-extrabold text-brand-600">1,2 triệu</dd>
+        </div>
+        <div class="flex flex-col px-6 text-center">
+          <dt class="order-2 mt-2 text-sm text-muted">Thời gian chốt sổ cuối ngày</dt>
+          <dd class="font-display text-4xl font-extrabold text-brand-600">4 phút</dd>
+        </div>
+      </dl>
+    </section>
+
+
+    <!-- === CẢM NHẬN  ·  bố cục desktop xong ở buổi 2 ============
+         TODO buổi 3 · tiết 2: ba thẻ trích dẫn, một cột mặc định,
+         ba cột từ lg. Câu trích dài nên đừng cho hai cột ở sm.
+
+         Công thức thẻ cao bằng nhau:
+           <li>          → ô lưới items-stretch
+           <figure>      → card flex h-full flex-col
+           <figcaption>  → mt-auto (rơi xuống đáy)
+
+         Giữ nguyên cấu trúc <ul> → <li> → <figure>: buổi 4 biến khối
+         này thành slider. Đổi sang <div> là hỏng cả hai buổi.
+         Toàn khối dùng .card và border-line → chế độ tối tự có.
+         ========================================================= -->
+    <section class="section" aria-labelledby="camnhan-title">
+      <h2 id="camnhan-title" class="text-4xl font-extrabold">Người dùng nói gì</h2>
+
+      <ul class="mt-14 grid grid-cols-3 items-stretch gap-6">
+        <li>
+          <figure class="card flex h-full flex-col">
+            <blockquote class="text-lg leading-relaxed">
+              Trước đây tối nào tôi cũng ngồi cộng sổ tới 9 giờ. Giờ chốt xong là xong,
+              số liệu khớp luôn với con dâu ghi ở nhà.
+            </blockquote>
+            <figcaption class="mt-auto flex flex-col gap-0.5 border-t border-line pt-5 text-sm">
+              <span class="font-semibold">Cô Nguyễn Thị Tám</span>
+              <cite class="not-italic text-muted">Vựa Ba Càng, Vĩnh Long</cite>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="card flex h-full flex-col">
+            <blockquote class="text-lg leading-relaxed">
+              Cái tôi cần là không cãi nhau về tiền. Thương lái có phiếu trong Zalo,
+              tôi có phiếu trong máy, hết chuyện.
+            </blockquote>
+            <figcaption class="mt-auto flex flex-col gap-0.5 border-t border-line pt-5 text-sm">
+              <span class="font-semibold">Anh Lê Hoàng</span>
+              <cite class="not-italic text-muted">HTX Tân Phú, Đồng Tháp</cite>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="card flex h-full flex-col">
+            <blockquote class="text-lg leading-relaxed">
+              Nhân viên mới vô làm nửa buổi là dùng được. Tôi sợ nhất phần mềm phải đi học,
+              cái này không phải học.
+            </blockquote>
+            <figcaption class="mt-auto flex flex-col gap-0.5 border-t border-line pt-5 text-sm">
+              <span class="font-semibold">Chú Trần Sáu</span>
+              <cite class="not-italic text-muted">Kho lạnh Sáu Nghĩa, Tiền Giang</cite>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- === BẢNG GIÁ  ·  bố cục desktop xong ở buổi 2 ============
+         TODO buổi 3 · tiết 2: một cột mặc định, ba cột từ lg. Kiểm
+         lại ở 360px xem ba nút còn thẳng hàng đáy không — mt-auto
+         chỉ có tác dụng trong một cột khi thẻ bị kéo cao bằng nhau.
+
+         Công thức bốn phần:
+           1. <ul> → grid items-stretch gap-6 lg:grid-cols-3
+           2. <li> → card flex h-full flex-col
+           3. nút  → mt-auto (đẩy xuống đáy, ba nút thẳng hàng)
+           4. thẻ nổi bật → relative ring-2 (ring không chiếm chỗ
+              trong bố cục nên thẻ không cao hơn hai thẻ kia)
+
+         TODO buổi 3 · tiết 4: đếm số lần lặp của <svg> dấu tick
+         trong section này. Lặp từ 3 lần trở lên là đủ điều kiện trích
+         thành component .tick trong @layer components. Đây là bài tập
+         "trích hay không trích" của tiết 4 — làm ở đây trước, rồi
+         dùng lại nguyên xi khi dựng pricing.html.
+
+         TODO buổi 3 · tiết 4: section này sẽ được BƯNG SANG
+         pricing.html gần như nguyên vẹn, cộng thêm bảng so sánh
+         4 cột. Đừng viết lại từ đầu.
+         ========================================================= -->
+    <section id="bang-gia" class="section" aria-labelledby="gia-title">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Bảng giá</p>
+        <h2 id="gia-title" class="mt-4 text-4xl font-extrabold">Trả theo quy mô vựa</h2>
+        <p class="mt-4 text-lg text-muted">Đổi gói bất cứ lúc nào. Mùa vắng hạ gói, mùa rộ nâng gói.</p>
+      </div>
+
+      <ul class="mt-14 grid grid-cols-3 items-stretch gap-6">
+        <li class="card flex h-full flex-col">
+          <h3 class="font-display text-lg font-bold">Vựa nhỏ</h3>
+          <p class="mt-1 text-sm text-muted">Một bàn cân, dưới 30 phiếu mỗi ngày.</p>
+          <p class="mt-6 font-display text-4xl font-extrabold">390.000 ₫<span class="font-body text-base font-medium text-muted">/tháng</span></p>
+
+          <ul class="mb-8 mt-6 flex flex-col gap-3 border-t border-line pt-6 text-sm">
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              2 tài khoản
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Phiếu cân không giới hạn
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Sổ lô hàng theo ngày
+            </li>
+          </ul>
+
+          <a href="#cta" class="btn btn-ghost mt-auto w-full">Chọn gói này</a>
+        </li>
+
+        <li class="card relative flex h-full flex-col ring-2 ring-brand-600">
+          <!-- absolute chỉ dùng cho phù hiệu — thứ NẰM ĐÈ LÊN bố cục.
+               Cả đồ án không được quá 3 lần. -->
+          <span class="badge absolute -top-3 left-6 bg-brand-600 text-white">Được chọn nhiều nhất</span>
+
+          <h3 class="font-display text-lg font-bold">Vựa vừa</h3>
+          <p class="mt-1 text-sm text-muted">Nhiều bàn cân, có công nợ thương lái.</p>
+          <p class="mt-6 font-display text-4xl font-extrabold">890.000 ₫<span class="font-body text-base font-medium text-muted">/tháng</span></p>
+
+          <ul class="mb-8 mt-6 flex flex-col gap-3 border-t border-line pt-6 text-sm">
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              8 tài khoản
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Mọi thứ của gói Vựa nhỏ
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Sổ công nợ thương lái
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Gửi phiếu qua Zalo
+            </li>
+          </ul>
+
+          <a href="#cta" class="btn btn-primary mt-auto w-full">Chọn gói này</a>
+        </li>
+
+        <li class="card flex h-full flex-col">
+          <h3 class="font-display text-lg font-bold">Chuỗi kho</h3>
+          <p class="mt-1 text-sm text-muted">Nhiều điểm cân, cần báo cáo gộp.</p>
+          <p class="mt-6 font-display text-4xl font-extrabold">1.990.000 ₫<span class="font-body text-base font-medium text-muted">/tháng</span></p>
+
+          <ul class="mb-8 mt-6 flex flex-col gap-3 border-t border-line pt-6 text-sm">
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Không giới hạn tài khoản
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Mọi thứ của gói Vựa vừa
+            </li>
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-600" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4.5 4.5L19 7" />
+              </svg>
+              Báo cáo gộp nhiều kho
+            </li>
+          </ul>
+
+          <a href="#cta" class="btn btn-ghost mt-auto w-full">Liên hệ tư vấn</a>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- === CÂU HỎI THƯỜNG GẶP  ·  bố cục desktop xong ở buổi 2 ==
+         TODO buổi 3 · tiết 2: hai cột lệch tỉ lệ. Ở điện thoại phải
+         về một cột, tiêu đề nằm trên danh sách câu hỏi.
+
+         grid-cols-[1fr_1.4fr] — cột phải rộng hơn. Giá trị tùy ý
+         này ĐƯỢC PHÉP vì nó là tỉ lệ bố cục, không phải một khoảng
+         cách nằm ngoài scale. Phân biệt cho rõ: p-[13px] thì sai,
+         grid-cols-[1fr_1.4fr] và min-w-[720px] thì đúng.
+
+         Buổi 4 biến khối này thành accordion, mỗi <h3> sẽ bọc một
+         <button>. Giữ nguyên cấu trúc.
+         ========================================================= -->
+    <section id="cau-hoi" class="section grid grid-cols-[1fr_1.4fr] gap-12" aria-labelledby="faq-title">
+      <div>
+        <p class="eyebrow">Câu hỏi thường gặp</p>
+        <h2 id="faq-title" class="mt-4 text-4xl font-extrabold">Điều chủ vựa hay hỏi trước khi dùng</h2>
+        <p class="mt-4 text-muted">Chưa thấy câu của mình? Gửi câu hỏi, chúng tôi trả lời trong ngày làm việc.</p>
+      </div>
+
+      <div class="divide-y divide-line">
+        <div class="py-6 first:pt-0 last:pb-0">
+          <h3 class="font-display text-lg font-bold">Mất mạng ở vựa thì có ghi phiếu được không?</h3>
+          <p class="mt-2 text-muted">Được. Phiếu lưu tạm trên máy và tự đẩy lên khi có mạng lại. Thanh trạng thái báo còn bao nhiêu phiếu chưa đồng bộ.</p>
+        </div>
+        <div class="py-6 first:pt-0 last:pb-0">
+          <h3 class="font-display text-lg font-bold">Người lớn tuổi dùng có được không?</h3>
+          <p class="mt-2 text-muted">Màn hình ghi phiếu chỉ có bốn ô nhập và một nút. Chữ cỡ lớn, không có menu chìm. Phần lớn chủ vựa dùng thành thạo sau một buổi.</p>
+        </div>
+        <div class="py-6 first:pt-0 last:pb-0">
+          <h3 class="font-display text-lg font-bold">Dữ liệu cũ trong sổ tay có nhập vào được không?</h3>
+          <p class="mt-2 text-muted">Có. Gửi ảnh chụp sổ hoặc file Excel, đội hỗ trợ nhập giúp phần công nợ đang dở của từng thương lái, miễn phí trong tháng đầu.</p>
+        </div>
+        <div class="py-6 first:pt-0 last:pb-0">
+          <h3 class="font-display text-lg font-bold">Nếu ngừng dùng thì dữ liệu đi đâu?</h3>
+          <p class="mt-2 text-muted">Tải toàn bộ phiếu cân và công nợ về file Excel bất cứ lúc nào, kể cả sau khi ngừng gói. Dữ liệu là của vựa.</p>
+        </div>
+        <div class="py-6 first:pt-0 last:pb-0">
+          <h3 class="font-display text-lg font-bold">Có kết nối được với cân điện tử không?</h3>
+          <p class="mt-2 text-muted">Với cân có cổng RS-232 thì có, cần thêm bộ chuyển đổi. Đội kỹ thuật khảo sát trước khi lắp, không tính phí.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- === CTA  ·  bố cục desktop xong ở buổi 2 =================
+         Khối nền brand-900 nằm TRONG container .section, không tràn
+         hết màn hình. Nút phụ viết thẳng bằng utility vì cả trang
+         mới dùng một lần — chưa đủ 3 lần để trích component.
+
+         TODO buổi 3 · tiết 2: px-12 ở điện thoại là ăn mất 96px
+         chiều ngang. Hạ padding ngang ở mặc định, nâng lên từ sm.
+
+         Khối này đã tối sẵn nên ở chế độ tối gần như không phải sửa.
+         Đây là ví dụ tốt: chọn màu đúng ngay từ đầu thì dark mode
+         không sinh việc.
+         ========================================================= -->
+    <section id="cta" class="section" aria-labelledby="cta-title">
+      <div class="rounded-card bg-brand-900 px-12 py-16 text-center">
+        <h2 id="cta-title" class="mx-auto max-w-2xl text-4xl font-extrabold text-white">
+          Mùa rộ năm nay đừng ghi sổ tay nữa
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-brand-100">
+          Cài đặt mất 10 phút. Dùng thử 30 ngày, không cần thẻ ngân hàng.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href="#" class="btn btn-lg bg-white text-brand-700 hover:bg-brand-50">Bắt đầu dùng thử</a>
+          <a href="tel:+842873001234" class="btn btn-lg border border-white/40 text-white hover:bg-white/10">Gọi 028 7300 1234</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- === FOOTER  ·  bố cục desktop xong ở buổi 2 ================
+       TODO buổi 3 · tiết 2: bốn cột cứng. Đây là chỗ vỡ nặng nhất
+       của cả trang ở 360px. Đi ba mốc: 1 → sm 2 cột → lg 4 cột.
+
+       Mỗi nhóm liên kết là một <nav> riêng có aria-labelledby trỏ tới
+       heading của nhóm.
+
+       TODO buổi 3 · tiết 4: footer này sẽ bị CHÉP TAY sang cả
+       pricing.html và contact.html. Chép xong bạn sẽ thấy phiền —
+       ghi cảm giác đó vào README mục "sẽ làm lại nếu có thêm thời
+       gian". Đó là giới hạn thật của HTML tĩnh, không phải lỗi của
+       bạn, và là lý do các môn sau dạy component.
+       ========================================================== -->
+  <footer class="border-t border-line bg-surface-alt">
+    <div class="mx-auto grid w-full max-w-6xl grid-cols-4 gap-10 px-5 py-20">
+      <div>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-600
+                       font-display text-lg font-extrabold text-white">V</span>
+          <span class="font-display text-xl font-extrabold">Vựa</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm text-muted">Phần mềm quản lý vựa nông sản cho chủ vựa ở Đồng bằng sông Cửu Long.</p>
+      </div>
+
+      <nav aria-labelledby="footer-sp">
+        <h2 id="footer-sp" class="text-xs font-semibold uppercase tracking-widest text-muted">Sản phẩm</h2>
+        <ul class="mt-4 flex flex-col gap-2.5 text-sm">
+          <li><a href="#tinh-nang" class="hover:text-brand-600">Tính năng</a></li>
+          <li><a href="#bang-gia" class="hover:text-brand-600">Bảng giá</a></li>
+          <li><a href="#cach-hoat-dong" class="hover:text-brand-600">Cách hoạt động</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="footer-ht">
+        <h2 id="footer-ht" class="text-xs font-semibold uppercase tracking-widest text-muted">Hỗ trợ</h2>
+        <ul class="mt-4 flex flex-col gap-2.5 text-sm">
+          <li><a href="#cau-hoi" class="hover:text-brand-600">Câu hỏi thường gặp</a></li>
+          <li><a href="tel:+842873001234" class="hover:text-brand-600">028 7300 1234</a></li>
+          <li><a href="mailto:hotro@vua.vn" class="hover:text-brand-600">hotro@vua.vn</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-muted">Địa chỉ</h2>
+        <address class="mt-4 text-sm not-italic text-muted">
+          128 Nguyễn Văn Cừ, Phường An Hòa<br />
+          Cần Thơ
+        </address>
+      </div>
+    </div>
+
+    <p class="mx-auto w-full max-w-6xl border-t border-line px-5 py-6 text-sm text-muted">
+      © 2026 Vựa. Bài thực hành môn Thiết kế Web.
+    </p>
+  </footer>
+
+</body>
+</html>
