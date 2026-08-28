@@ -59,3 +59,15 @@ git push
 ## GitHub Pages
 https://bathanh-sys.github.io/Data-storage/
 
+## Buổi 4 – JavaScript DOM & tương tác
+
+Đã hoàn thành 7 tính năng:
+1. Menu mobile (ARIA + ESC + click ngoài)
+2. Navbar phản ứng khi cuộn (IntersectionObserver)
+3. Accordion FAQ (event delegation)
+4. Dark mode (localStorage + chống nháy trắng)
+5. Công tắc giá tháng/năm (Intl.NumberFormat)
+6. Slider cảm nhận (inert + autoplay)
+7. Hiệu ứng lộ dần (tôn trọng prefers-reduced-motion)
+
+JS chia thành module: `main.js` chỉ khởi tạo.
