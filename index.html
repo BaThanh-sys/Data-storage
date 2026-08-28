@@ -5,26 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RobotVerse AI – Explore the Future of AI Robotics</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
   <link rel="stylesheet" href="./dist/output.css">
+
+  <!-- Chống nháy trắng -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved
+        ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
 </head>
 <body class="bg-surface-dark text-ink-dark font-body antialiased">
 
+  <div id="nav-sentinel" class="h-0 w-0" aria-hidden="true"></div>
+
   <!-- ========== HEADER ========== -->
   <header class="sticky top-0 z-50 bg-surface-dark/80 backdrop-blur-xl border-b border-line-dark">
-    <div class="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="Robotverse-AI.html" class="flex items-center gap-3 font-display font-bold text-xl text-ink-dark">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-display font-bold text-xl">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-lg">🤖</div>
         RobotVerse AI
       </a>
 
-      <!-- Nav -->
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
         <li><a href="#gallery" class="hover:text-accent-400 transition">Gallery</a></li>
         <li><a href="#applications" class="hover:text-accent-400 transition">Applications</a></li>
@@ -33,14 +42,26 @@
         <li><a href="contact.html" class="hover:text-accent-400 transition">Contact</a></li>
       </ul>
 
-      <!-- Actions -->
       <div class="flex items-center gap-3">
+        <button
+          id="themeToggle"
+          role="switch"
+          aria-checked="true"
+          aria-label="Chuyển chế độ sáng/tối"
+          class="w-10 h-10 rounded-full border border-line-dark flex items-center justify-center text-lg hover:border-accent-400 transition"
+        >🌙</button>
+
         <a href="#gallery" class="btn btn-primary btn-sm hidden sm:inline-flex">Explore Models</a>
-        <button id="menuToggle" class="md:hidden text-2xl text-ink-dark" aria-label="Menu">☰</button>
+
+        <button
+          id="menuToggle"
+          class="md:hidden text-2xl"
+          aria-expanded="false"
+          aria-label="Mở menu"
+        >☰</button>
       </div>
     </div>
 
-    <!-- Mobile menu -->
     <ul id="navLinks" class="hidden md:hidden flex-col gap-4 px-6 py-4 bg-surface-dark border-b border-line-dark text-muted">
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#applications">Applications</a></li>
@@ -76,7 +97,6 @@
         </div>
       </div>
 
-      <!-- Robot visual -->
       <div class="flex justify-center">
         <div class="text-8xl md:text-9xl animate-bounce" style="animation-duration: 3s;">🤖</div>
       </div>
@@ -84,10 +104,10 @@
   </section>
 
   <!-- ========== STATS ========== -->
-  <div class="max-w-6xl mx-auto px-6 -mt-8 relative z-20">
+  <div class="max-w-6xl mx-auto px-6 -mt-8 relative z-20" data-reveal>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="card p-6 text-center"><div class="font-display text-3xl font-bold text-accent-400">120+</div>
-        
+      <div class="card p-6 text-center">
+        <div class="font-display text-3xl font-bold text-accent-400">120+</div>
         <div class="text-muted text-sm mt-1">Robot Models</div>
       </div>
       <div class="card p-6 text-center">
@@ -106,7 +126,7 @@
   </div>
 
   <!-- ========== GALLERY ========== -->
-  <section id="gallery" class="py-20">
+  <section id="gallery" class="py-20" data-reveal>
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-title">
         <div class="section-label">Robot Gallery</div>
@@ -115,7 +135,6 @@
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
-        <!-- Card mẫu -->
         <div class="card overflow-hidden">
           <div class="h-44 bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center text-6xl relative">
             🤖
@@ -156,7 +175,7 @@
   </section>
 
   <!-- ========== APPLICATIONS ========== -->
-  <section id="applications" class="py-20 bg-white/2">
+  <section id="applications" class="py-20 bg-white/2" data-reveal>
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-title">
         <div class="section-label">Applications</div>
@@ -210,7 +229,7 @@
   </section>
 
   <!-- ========== FEATURED ========== -->
-  <section id="featured" class="py-20">
+  <section id="featured" class="py-20" data-reveal>
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-title">
         <div class="section-label">Featured</div>
@@ -241,8 +260,41 @@
     </div>
   </section>
 
+  <!-- ========== TESTIMONIAL SLIDER ========== -->
+  <section id="testimonial-slider" class="py-20 overflow-hidden" data-reveal>
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <div class="section-label">Testimonials</div>
+      <h2 class="font-display text-3xl font-bold mb-10">Cảm nhận từ người dùng</h2>
+
+      <div class="relative">
+        <div class="overflow-hidden">
+          <div data-track class="flex transition-transform duration-500 ease-out">
+            <div data-slide class="w-full shrink-0 px-4">
+              <p class="text-lg text-muted mb-4">“Giao diện rất đẹp và dễ dùng, mình tìm robot nhanh hơn rất nhiều.”</p>
+              <p class="font-semibold">— Minh Anh, Sinh viên</p>
+            </div>
+            <div data-slide class="w-full shrink-0 px-4">
+              <p class="text-lg text-muted mb-4">“Phần so sánh tính năng giúp team mình quyết định nhanh.”</p>
+              <p class="font-semibold">— Hoàng Long, Product Manager</p>
+            </div>
+            <div data-slide class="w-full shrink-0 px-4">
+              <p class="text-lg text-muted mb-4">“Dark mode mượt, không bị nháy trắng khi tải trang.”</p>
+              <p class="font-semibold">— Thu Hà, Designer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 mt-8">
+          <button data-prev type="button" class="btn btn-outline btn-sm" aria-label="Slide trước">←</button>
+          <div data-dots class="flex gap-2"></div>
+          <button data-next type="button" class="btn btn-outline btn-sm" aria-label="Slide sau">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CTA PRICING ========== -->
-  <section class="py-16">
+  <section class="py-16" data-reveal>
     <div class="max-w-6xl mx-auto px-6">
       <div class="card p-10 md:p-14 text-center border-brand-500/40 bg-gradient-to-br from-brand-500/10 to-accent-500/5">
         <h2 class="font-display text-3xl font-bold mb-4">Sẵn sàng khám phá sâu hơn?</h2>
@@ -257,7 +309,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="grid md:grid-cols-4 gap-10 mb-10">
         <div class="md:col-span-1">
-          <a href="Robotverse-AI.html" class="flex items-center gap-3 font-display font-bold text-lg mb-4">
+          <a href="index.html" class="flex items-center gap-3 font-display font-bold text-lg mb-4">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">🤖</div>
             RobotVerse AI
           </a>
@@ -295,7 +347,8 @@
       </div>
     </div>
   </footer>
+
+  <button id="toTop" aria-label="Lên đầu trang">↑</button>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
-
-

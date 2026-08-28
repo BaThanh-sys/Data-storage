@@ -10,35 +10,62 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./dist/output.css">
+
+  <!-- Chống nháy trắng -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved
+        ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
 </head>
 <body class="bg-surface-dark text-ink-dark font-body antialiased">
+
+  <div id="nav-sentinel" class="h-0 w-0" aria-hidden="true"></div>
 
   <!-- ========== HEADER ========== -->
   <header class="sticky top-0 z-50 bg-surface-dark/80 backdrop-blur-xl border-b border-line-dark">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="Robotverse-AI.html" class="flex items-center gap-3 font-display font-bold text-xl">
+      <a href="index.html" class="flex items-center gap-3 font-display font-bold text-xl">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-lg">🤖</div>
         RobotVerse AI
       </a>
 
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
-        <li><a href="Robotverse-AI.html#gallery" class="hover:text-accent-400 transition">Gallery</a></li>
-        <li><a href="Robotverse-AI.html#applications" class="hover:text-accent-400 transition">Applications</a></li>
-        <li><a href="Robotverse-AI.html#featured" class="hover:text-accent-400 transition">Featured</a></li>
+        <li><a href="index.html#gallery" class="hover:text-accent-400 transition">Gallery</a></li>
+        <li><a href="index.html#applications" class="hover:text-accent-400 transition">Applications</a></li>
+        <li><a href="index.html#featured" class="hover:text-accent-400 transition">Featured</a></li>
         <li><a href="pricing.html" class="hover:text-accent-400 transition">Pricing</a></li>
         <li><a href="contact.html" class="text-accent-400">Contact</a></li>
       </ul>
 
       <div class="flex items-center gap-3">
-        <a href="Robotverse-AI.html#gallery" class="btn btn-primary btn-sm hidden sm:inline-flex">Explore Models</a>
-        <button id="menuToggle" class="md:hidden text-2xl" aria-label="Menu">☰</button>
+        <button
+          id="themeToggle"
+          role="switch"
+          aria-checked="true"
+          aria-label="Chuyển chế độ sáng/tối"
+          class="w-10 h-10 rounded-full border border-line-dark flex items-center justify-center text-lg hover:border-accent-400 transition"
+        >🌙</button>
+
+        <a href="index.html#gallery" class="btn btn-primary btn-sm hidden sm:inline-flex">Explore Models</a>
+
+        <button
+          id="menuToggle"
+          class="md:hidden text-2xl"
+          aria-expanded="false"
+          aria-label="Mở menu"
+        >☰</button>
       </div>
     </div>
 
     <ul id="navLinks" class="hidden md:hidden flex-col gap-4 px-6 py-4 bg-surface-dark border-b border-line-dark text-muted">
-      <li><a href="Robotverse-AI.html#gallery">Gallery</a></li>
-      <li><a href="Robotverse-AI.html#applications">Applications</a></li>
-      <li><a href="Robotverse-AI.html#featured">Featured</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="index.html#applications">Applications</a></li>
+      <li><a href="index.html#featured">Featured</a></li>
       <li><a href="pricing.html">Pricing</a></li>
       <li><a href="contact.html" class="text-accent-400">Contact</a></li>
     </ul>
@@ -64,7 +91,6 @@
         <div class="lg:col-span-2 space-y-8">
           <div>
             <h2 class="font-display text-2xl font-bold mb-6">Thông tin liên hệ</h2>
-
             <div class="space-y-5">
               <div class="flex items-start gap-4">
                 <div class="w-11 h-11 rounded-xl bg-brand-500/15 flex items-center justify-center text-xl shrink-0">📧</div>
@@ -73,7 +99,6 @@
                   <a href="mailto:hello@robotverse.ai" class="text-muted text-sm hover:text-accent-400 transition">hello@robotverse.ai</a>
                 </div>
               </div>
-
               <div class="flex items-start gap-4">
                 <div class="w-11 h-11 rounded-xl bg-brand-500/15 flex items-center justify-center text-xl shrink-0">📍</div>
                 <div>
@@ -81,7 +106,6 @@
                   <p class="text-muted text-sm">Hà Nội, Việt Nam</p>
                 </div>
               </div>
-
               <div class="flex items-start gap-4">
                 <div class="w-11 h-11 rounded-xl bg-brand-500/15 flex items-center justify-center text-xl shrink-0">💬</div>
                 <div>
@@ -92,7 +116,6 @@
             </div>
           </div>
 
-          <!-- Sau khi gửi thì sao -->
           <div class="card p-6 border-accent-400/30">
             <h3 class="font-display font-bold text-lg mb-3">Sau khi gửi thì sao?</h3>
             <ul class="space-y-2 text-sm text-muted">
@@ -107,72 +130,25 @@
         <!-- Right: Form -->
         <div class="lg:col-span-3">
           <form id="contactForm" class="card p-8 md:p-10" novalidate>
-            <!-- 1. Họ và tên -->
             <div class="mb-5">
               <label for="name" class="field-label">Họ và tên</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                class="field-input"
-                placeholder="Nguyễn Văn A"
-                required
-                autocomplete="name"
-                aria-required="true"
-              >
+              <input type="text" id="name" name="name" class="field-input" placeholder="Nguyễn Văn A" required autocomplete="name" aria-required="true">
             </div>
-
-            <!-- 2. Email  -->
             <div class="mb-5">
               <label for="email" class="field-label">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="field-input"
-                placeholder="email@example.com"
-                required
-                autocomplete="email"
-                aria-required="true"
-              >
+              <input type="email" id="email" name="email" class="field-input" placeholder="email@example.com" required autocomplete="email" aria-required="true">
             </div>
-
-            <!-- 3. Số điện thoại  -->
             <div class="mb-5">
               <label for="phone" class="field-label">Số điện thoại</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                class="field-input"
-                placeholder="0912 345 678"
-                autocomplete="tel"
-              >
+              <input type="tel" id="phone" name="phone" class="field-input" placeholder="0912 345 678" autocomplete="tel">
             </div>
-
-            <!-- 4. Công ty / Tổ chức -->
             <div class="mb-5">
               <label for="company" class="field-label">Công ty / Tổ chức</label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                class="field-input"
-                placeholder="Tên công ty hoặc trường học (nếu có)"
-                autocomplete="organization"
-              >
+              <input type="text" id="company" name="company" class="field-input" placeholder="Tên công ty hoặc trường học (nếu có)" autocomplete="organization">
             </div>
-
-            <!-- 5. Loại yêu cầu -->
             <div class="mb-5">
               <label for="topic" class="field-label">Loại yêu cầu</label>
-              <select
-                id="topic"
-                name="topic"
-                class="field-input"
-                required
-                aria-required="true"
-              >
+              <select id="topic" name="topic" class="field-input" required aria-required="true">
                 <option value="" disabled selected>Chọn loại yêu cầu</option>
                 <option value="support">Hỗ trợ kỹ thuật</option>
                 <option value="partnership">Hợp tác / Partnership</option>
@@ -181,25 +157,11 @@
                 <option value="other">Khác</option>
               </select>
             </div>
-
-            <!-- 6. Tin nhắn -->
             <div class="mb-6">
               <label for="message" class="field-label">Tin nhắn</label>
-              <textarea
-                id="message"
-                name="message"
-                class="field-input min-h-36 resize-y"
-                placeholder="Nội dung bạn muốn gửi..."
-                required
-                aria-required="true"
-              ></textarea>
+              <textarea id="message" name="message" class="field-input min-h-36 resize-y" placeholder="Nội dung bạn muốn gửi..." required aria-required="true"></textarea>
             </div>
-
-            <button type="submit" class="btn btn-primary btn-full py-3.5 text-base">
-              Gửi tin nhắn
-            </button>
-
-            <!-- Thông báo thành công  -->
+            <button type="submit" class="btn btn-primary btn-full py-3.5 text-base">Gửi tin nhắn</button>
             <div id="formSuccess" class="hidden mt-5 p-4 rounded-xl bg-success/15 border border-success/30 text-success text-sm">
               ✓ Gửi thành công! Chúng tôi sẽ phản hồi bạn trong vòng 24 giờ.
             </div>
@@ -215,7 +177,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="grid md:grid-cols-4 gap-10 mb-10">
         <div>
-          <a href="Robotverse-AI.html" class="flex items-center gap-3 font-display font-bold text-lg mb-4">
+          <a href="index.html" class="flex items-center gap-3 font-display font-bold text-lg mb-4">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">🤖</div>
             RobotVerse AI
           </a>
@@ -224,8 +186,8 @@
         <div>
           <h4 class="font-semibold mb-4">Explore</h4>
           <div class="flex flex-col gap-2 text-sm text-muted">
-            <a href="Robotverse-AI.html#gallery" class="hover:text-accent-400">Robot Gallery</a>
-            <a href="Robotverse-AI.html#applications" class="hover:text-accent-400">Applications</a>
+            <a href="index.html#gallery" class="hover:text-accent-400">Robot Gallery</a>
+            <a href="index.html#applications" class="hover:text-accent-400">Applications</a>
             <a href="pricing.html" class="hover:text-accent-400">Pricing</a>
           </div>
         </div>
@@ -249,9 +211,9 @@
         <span>Dark • Glass • Neon</span>
       </div>
     </div>
-  </footer>     
+  </footer>
+
+  <button id="toTop" aria-label="Lên đầu trang">↑</button>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
-
-
-
