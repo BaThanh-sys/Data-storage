@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý giao dịch – RobotVerse AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./dist/output.css">
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
+</head>
+<body class="bg-surface-dark text-ink-dark font-body antialiased">
+  <div id="nav-sentinel" class="h-0 w-0" aria-hidden="true"></div>
+
+  <header class="sticky top-0 z-50 bg-surface-dark/80 backdrop-blur-xl border-b border-line-dark">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-display font-bold text-xl">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-lg">🤖</div>
+        RobotVerse AI
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+        <li><a href="index.html#gallery" class="hover:text-accent-400 transition">Gallery</a></li>
+        <li><a href="pricing.html" class="hover:text-accent-400 transition">Pricing</a></li>
+        <li><a href="records.html" class="text-accent-400">Giao dịch</a></li>
+        <li><a href="contact.html" class="hover:text-accent-400 transition">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" role="switch" aria-checked="true" aria-label="Chuyển chế độ sáng/tối"
+          class="w-10 h-10 rounded-full border border-line-dark flex items-center justify-center text-lg hover:border-accent-400 transition">🌙</button>
+        <button id="menuToggle" class="md:hidden text-2xl" aria-expanded="false" aria-label="Mở menu">☰</button>
+      </div>
+    </div>
+    <ul id="navLinks" class="hidden md:hidden flex-col gap-4 px-6 py-4 bg-surface-dark border-b border-line-dark text-muted">
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="records.html" class="text-accent-400">Giao dịch</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </header>
+
+  <main id="records-app" class="max-w-6xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <div class="section-label">Data</div>
+      <h1 class="font-display text-3xl md:text-4xl font-bold mb-2">Quản lý giao dịch</h1>
+      <p class="text-muted">Dữ liệu đọc từ JSON · lọc · tìm · sắp xếp · thêm/xóa · lưu localStorage</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="card p-4 mb-6 flex flex-col md:flex-row gap-3 flex-wrap">
+      <input id="search" type="search" placeholder="Tìm theo tên thương lái hoặc mã..." class="field-input flex-1 min-w-[200px]" autocomplete="off">
+      <select id="filter-category" class="field-input w-full md:w-40">
+        <option value="all">Tất cả loại</option>
+        <option value="Xoài">Xoài</option>
+        <option value="Sầu riêng">Sầu riêng</option>
+        <option value="Thanh long">Thanh long</option>
+        <option value="Dừa">Dừa</option>
+        <option value="Cam">Cam</option>
+      </select>
+      <select id="filter-status" class="field-input w-full md:w-44">
+        <option value="all">Tất cả trạng thái</option>
+        <option value="da-chot">Đã chốt</option>
+        <option value="dang-giao">Đang giao</option>
+        <option value="cho-xac-nhan">Chờ xác nhận</option>
+        <option value="huy">Hủy</option>
+      </select>
+      <select id="sort" class="field-input w-full md:w-44">
+        <option value="date-desc">Ngày mới nhất</option>
+        <option value="date-asc">Ngày cũ nhất</option>
+        <option value="amount-desc">Số tiền cao → thấp</option>
+        <option value="amount-asc">Số tiền thấp → cao</option>
+        <option value="weight-desc">Khối lượng cao → thấp</option>
+        <option value="weight-asc">Khối lượng thấp → cao</option>
+      </select>
+      <button type="button" id="reset-data" class="btn btn-outline btn-sm">Khôi phục mẫu</button>
+    </div>
+
+    <p class="text-sm text-muted mb-4">Hiển thị <strong data-count>0</strong> bản ghi</p>
+
+    <!-- States -->
+    <div data-state="loading" class="card p-10 text-center text-muted">
+      Đang tải dữ liệu…
+    </div>
+
+    <div data-state="error" hidden class="card p-10 text-center">
+      <p class="text-danger mb-4" data-error-msg></p>
+      <button type="button" id="retry-load" class="btn btn-primary btn-sm" onclick="location.reload()">Thử lại</button>
+    </div>
+
+    <div data-state="empty" hidden class="card p-10 text-center text-muted">
+      Không có bản ghi nào khớp bộ lọc.
+    </div>
+
+    <div data-state="table" hidden class="overflow-x-auto rounded-2xl border border-line-dark">
+      <table class="w-full min-w-[800px] text-sm text-left">
+        <thead class="bg-surface-card text-muted">
+          <tr>
+            <th class="px-4 py-3 font-medium">Mã</th>
+            <th class="px-4 py-3 font-medium">Thương lái</th>
+            <th class="px-4 py-3 font-medium">Loại</th>
+            <th class="px-4 py-3 font-medium">Trạng thái</th>
+            <th class="px-4 py-3 font-medium">Khối lượng</th>
+            <th class="px-4 py-3 font-medium">Số tiền</th>
+            <th class="px-4 py-3 font-medium">Ngày</th>
+            <th class="px-4 py-3 font-medium"></th>
+          </tr>
+        </thead>
+        <tbody data-tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Add form -->
+    <div class="card p-6 mt-10">
+      <h2 class="font-display text-xl font-bold mb-4">Thêm bản ghi</h2>
+      <form id="add-form" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="field-label" for="add-trader">Thương lái</label>
+          <input id="add-trader" name="trader" class="field-input" required autocomplete="name">
+        </div>
+        <div>
+          <label class="field-label" for="add-category">Loại</label>
+          <select id="add-category" name="category" class="field-input">
+            <option>Xoài</option>
+            <option>Sầu riêng</option>
+            <option>Thanh long</option>
+            <option>Dừa</option>
+            <option>Cam</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="add-status">Trạng thái</label>
+          <select id="add-status" name="status" class="field-input">
+            <option value="cho-xac-nhan">Chờ xác nhận</option>
+            <option value="dang-giao">Đang giao</option>
+            <option value="da-chot">Đã chốt</option>
+            <option value="huy">Hủy</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="add-weight">Khối lượng (kg)</label>
+          <input id="add-weight" name="weight" type="number" min="1" class="field-input" required>
+        </div>
+        <div>
+          <label class="field-label" for="add-amount">Số tiền (VND)</label>
+          <input id="add-amount" name="amount" type="number" min="0" class="field-input" required>
+        </div>
+        <div>
+          <label class="field-label" for="add-date">Ngày</label>
+          <input id="add-date" name="date" type="date" class="field-input" required>
+        </div>
+        <div class="sm:col-span-2 lg:col-span-3">
+          <button type="submit" class="btn btn-primary">Thêm bản ghi</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <template id="row-template">
+    <tr class="border-t border-line-dark hover:bg-white/5">
+      <td class="px-4 py-3 font-mono text-xs" data-cell="id"></td>
+      <td class="px-4 py-3" data-cell="trader"></td>
+      <td class="px-4 py-3" data-cell="category"></td>
+      <td class="px-4 py-3" data-cell="status"></td>
+      <td class="px-4 py-3" data-cell="weight"></td>
+      <td class="px-4 py-3" data-cell="amount"></td>
+      <td class="px-4 py-3" data-cell="date"></td>
+      <td class="px-4 py-3">
+        <button type="button" data-delete class="text-danger text-xs hover:underline" aria-label="Xóa">Xóa</button>
+      </td>
+    </tr>
+  </template>
+
+  <footer class="border-t border-line-dark pt-10 pb-8 mt-16">
+    <div class="max-w-6xl mx-auto px-6 text-sm text-muted flex justify-between">
+      <span>© 2026 RobotVerse AI</span>
+      <a href="index.html" class="hover:text-accent-400">← Về trang chủ</a>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Lên đầu trang">↑</button>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
