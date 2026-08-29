@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing – RobotVerse AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./dist/output.css">
+
+  <!-- Chống nháy trắng -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const dark = saved
+        ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    })();
+  </script>
+</head>
+<body class="bg-surface-dark text-ink-dark font-body antialiased">
+
+  <div id="nav-sentinel" class="h-0 w-0" aria-hidden="true"></div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="sticky top-0 z-50 bg-surface-dark/80 backdrop-blur-xl border-b border-line-dark">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-display font-bold text-xl">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-lg">🤖</div>
+        RobotVerse AI
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+        <li><a href="index.html#gallery" class="hover:text-accent-400 transition">Gallery</a></li>
+        <li><a href="index.html#applications" class="hover:text-accent-400 transition">Applications</a></li>
+        <li><a href="index.html#featured" class="hover:text-accent-400 transition">Featured</a></li>
+        <li><a href="pricing.html" class="text-accent-400">Pricing</a></li>
+        <li><a href="contact.html" class="hover:text-accent-400 transition">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <button
+          id="themeToggle"
+          role="switch"
+          aria-checked="true"
+          aria-label="Chuyển chế độ sáng/tối"
+          class="w-10 h-10 rounded-full border border-line-dark flex items-center justify-center text-lg hover:border-accent-400 transition"
+        >🌙</button>
+
+        <a href="index.html#gallery" class="btn btn-primary btn-sm hidden sm:inline-flex">Explore Models</a>
+
+        <button
+          id="menuToggle"
+          class="md:hidden text-2xl"
+          aria-expanded="false"
+          aria-label="Mở menu"
+        >☰</button>
+      </div>
+    </div>
+
+    <ul id="navLinks" class="hidden md:hidden flex-col gap-4 px-6 py-4 bg-surface-dark border-b border-line-dark text-muted">
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="index.html#applications">Applications</a></li>
+      <li><a href="index.html#featured">Featured</a></li>
+      <li><a href="pricing.html" class="text-accent-400">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="pt-16 pb-12">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div class="section-label">Pricing</div>
+      <h1 class="font-display text-4xl md:text-5xl font-bold mb-4">Chọn gói phù hợp</h1>
+      <p class="text-muted text-lg max-w-xl mx-auto">
+        Trải nghiệm showroom miễn phí hoặc nâng cấp để mở khóa thêm nhiều quyền lợi.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== PRICING TOGGLE ========== -->
+  <div id="pricing-toggle" class="flex items-center justify-center gap-3 mb-10">
+    <span class="text-sm">Theo tháng</span>
+    <button
+      type="button"
+      role="switch"
+      aria-checked="false"
+      aria-label="Chuyển sang giá theo năm"
+      class="relative w-14 h-7 rounded-full bg-line-dark transition aria-checked:bg-brand-500"
+    >
+      <span class="absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white transition-transform duration-200"></span>
+    </button>
+    <span class="text-sm">Theo năm <span class="text-accent-400 text-xs">(tiết kiệm 20%)</span></span>
+  </div>
+
+  <!-- ========== PRICING CARDS ========== -->
+  <section class="pb-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+
+        <!-- Free -->
+        <div class="card p-8">
+          <h3 class="font-display text-xl font-bold mb-1">Free</h3>
+          <div class="font-display text-4xl font-bold mb-6">
+            <span data-price data-monthly="0" data-yearly="0">0 ₫</span>
+            <span class="text-base font-normal text-muted">/tháng</span>
+          </div>
+          <ul class="space-y-3 text-muted text-sm mb-8">
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Browse tất cả robot</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Xem thông số cơ bản</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Truy cập blog</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Không giới hạn thiết bị</li>
+            <li class="flex items-center gap-2"><span class="text-muted/50">✗</span> Giới hạn số lượng token</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline btn-full py-3">Get Started</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="card p-8 border-brand-500 relative shadow-lg shadow-brand-500/20">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold px-4 py-1 rounded-full">
+            Popular
+          </div>
+          <h3 class="font-display text-xl font-bold mb-1">Pro</h3>
+          <div class="font-display text-4xl font-bold mb-6">
+            <span data-price data-monthly="290000" data-yearly="2784000">290.000 ₫</span>
+            <span class="text-base font-normal text-muted">/tháng</span>
+          </div>
+          <ul class="space-y-3 text-muted text-sm mb-8">
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Unlimited Access</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Download Brochure PDF</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> So sánh robot chi tiết</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Priority Support</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Early access tính năng mới</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary btn-full py-3">Get Pro</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="card p-8">
+          <h3 class="font-display text-xl font-bold mb-1">Enterprise</h3>
+          <div class="font-display text-4xl font-bold mb-6">
+            <span data-price data-monthly="0" data-yearly="0">Liên hệ</span>
+          </div>
+          <ul class="space-y-3 text-muted text-sm mb-8">
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Custom API Access</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Private Collection</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Analytics Dashboard</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> Dedicated Support</li>
+            <li class="flex items-center gap-2"><span class="text-accent-400">✓</span> White-label option</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline btn-full py-3">Contact Sales</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMPARISON TABLE ========== -->
+  <section class="py-16 bg-white/2" data-reveal>
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="section-title">
+        <div class="section-label">So sánh chi tiết</div>
+        <h2 class="font-display text-3xl font-bold mb-3">Bảng so sánh tính năng</h2>
+        <p class="text-muted">Xem rõ sự khác biệt giữa các gói</p>
+      </div>
+
+      <p class="mt-2 mb-4 text-sm text-muted lg:hidden">Vuốt ngang để xem hết bảng.</p>
+
+      <div class="overflow-x-auto rounded-2xl border border-line-dark">
+        <table class="w-full min-w-[640px] text-sm text-left">
+          <thead class="bg-surface-card text-muted">
+            <tr>
+              <th class="px-6 py-4 font-medium">Tính năng</th>
+              <th class="px-6 py-4 font-medium text-center">Free</th>
+              <th class="px-6 py-4 font-medium text-center text-accent-400">Pro</th>
+              <th class="px-6 py-4 font-medium text-center">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-line-dark">
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">Browse tất cả robot</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">Xem thông số chi tiết</td>
+              <td class="px-6 py-4 text-center text-muted">Cơ bản</td>
+              <td class="px-6 py-4 text-center text-accent-400">Đầy đủ</td>
+              <td class="px-6 py-4 text-center text-accent-400">Đầy đủ</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">So sánh robot</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">Download Brochure PDF</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">API Access</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">Priority Support</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">Dedicated Support</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+            <tr class="hover:bg-white/5">
+              <td class="px-6 py-4">White-label</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-muted">—</td>
+              <td class="px-6 py-4 text-center text-accent-400">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ACCORDION ========== -->
+  <section id="faq" class="py-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="section-title">
+        <div class="section-label">FAQ</div>
+        <h2 class="font-display text-3xl font-bold mb-3">Câu hỏi thường gặp</h2>
+      </div>
+
+      <div class="space-y-3">
+        <div class="card overflow-hidden">
+          <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-1"
+            class="w-full flex justify-between items-center p-5 text-left font-semibold">
+            Tôi có thể hủy gói Pro bất cứ lúc nào không?
+            <span aria-hidden="true">+</span>
+          </button>
+          <div id="faq-1" hidden class="px-5 pb-5 text-muted text-sm">
+            Có. Bạn có thể hủy bất kỳ lúc nào. Gói sẽ vẫn hoạt động đến hết chu kỳ thanh toán hiện tại.
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-2"
+            class="w-full flex justify-between items-center p-5 text-left font-semibold">
+            Có hỗ trợ thanh toán bằng thẻ Việt Nam không?
+            <span aria-hidden="true">+</span>
+          </button>
+          <div id="faq-2" hidden class="px-5 pb-5 text-muted text-sm">
+            Hiện tại chúng tôi hỗ trợ Visa, Mastercard và chuyển khoản ngân hàng. Momo & ZaloPay đang được phát triển.
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-3"
+            class="w-full flex justify-between items-center p-5 text-left font-semibold">
+            Gói Enterprise có dùng thử không?
+            <span aria-hidden="true">+</span>
+          </button>
+          <div id="faq-3" hidden class="px-5 pb-5 text-muted text-sm">
+            Có. Liên hệ đội Sales để được cấp tài khoản dùng thử 14 ngày miễn phí.
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <button type="button" data-faq-trigger aria-expanded="false" aria-controls="faq-4"
+            class="w-full flex justify-between items-center p-5 text-left font-semibold">
+            Tôi có được hoàn tiền không?
+            <span aria-hidden="true">+</span>
+          </button>
+          <div id="faq-4" hidden class="px-5 pb-5 text-muted text-sm">
+            Trong vòng 7 ngày đầu tiên nếu không hài lòng, bạn có thể yêu cầu hoàn tiền 100%.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-line-dark pt-12 pb-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10 mb-10">
+        <div>
+          <a href="index.html" class="flex items-center gap-3 font-display font-bold text-lg mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">🤖</div>
+            RobotVerse AI
+          </a>
+          <p class="text-muted text-sm">Showroom kỹ thuật số dành cho các mô hình Robot AI hiện đại.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Explore</h4>
+          <div class="flex flex-col gap-2 text-sm text-muted">
+            <a href="index.html#gallery" class="hover:text-accent-400">Robot Gallery</a>
+            <a href="index.html#applications" class="hover:text-accent-400">Applications</a>
+            <a href="pricing.html" class="hover:text-accent-400">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Resources</h4>
+          <div class="flex flex-col gap-2 text-sm text-muted">
+            <a href="#" class="hover:text-accent-400">Blog</a>
+            <a href="#" class="hover:text-accent-400">Documentation</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Company</h4>
+          <div class="flex flex-col gap-2 text-sm text-muted">
+            <a href="contact.html" class="hover:text-accent-400">Contact</a>
+            <a href="#" class="hover:text-accent-400">About</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-line-dark pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-muted">
+        <span>© 2026 RobotVerse AI</span>
+        <span>Dark • Glass • Neon</span>
+      </div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Lên đầu trang">↑</button>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
