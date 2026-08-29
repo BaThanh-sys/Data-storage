@@ -13,3 +13,4 @@ export function initTheme() {
     toggle.setAttribute("aria-checked", String(dark));
   });
 }
+

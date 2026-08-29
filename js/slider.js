@@ -55,3 +55,4 @@ export function initSlider() {
   go(0);
   start();
 }
+

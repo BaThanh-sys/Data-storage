@@ -195,6 +195,7 @@ function bindControls() {
       render();
     });
   }
+  
 
   if (resetBtn) {
     resetBtn.addEventListener("click", async () => {

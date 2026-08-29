@@ -25,3 +25,4 @@ export function initPricing() {
     updatePrices(yearly);
   });
 }
+
